@@ -1,4 +1,5 @@
 # excel-workflow-automation
+
 An Excel-based solution for managing monthly transportation charge responses and preparing finance-ready allocation records.
 
 ## Key Features
@@ -28,6 +29,10 @@ Once the workflow is established:
 - Final review and return to Finance can often take less than 5 minutes, depending on data quality and required corrections.
 
 This significantly reduces repetitive tracking, manual entry, and follow-up effort.
+
+### Further Reduction with Claude
+
+Using Claude to run the monthly routine reduces even the remaining manual work. Steps that previously took about 5 minutes each, such as setting up the new monthly file and reviewing records before returning them to Finance, are now largely handled by Claude, leaving only a quick check of the results.
 
 ## Disclaimer
 

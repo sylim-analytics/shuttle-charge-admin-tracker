@@ -1,39 +1,28 @@
-# excel-workflow-automation
+# 🚍 Shuttle Charge Allocation Tracker
 
-An Excel-based solution for managing monthly transportation charge responses and preparing finance-ready allocation records.
+**Turned a manual month-end finance task into a paste-once workflow, without changing the finance team's workbook.**
+Built with **Excel (formulas, PivotTables, lookups)** · later extended with an AI copilot.
 
-## Key Features
+### 👉 [Try the live demo](https://sylim-analytics.github.io/shuttle-charge-admin-tracker/)
+> Interactive mockup with fictional data (NovaWorks Corp). No sign-in needed.
 
-- Tracks complete and pending responses
-- Flags missing contact information
-- Creates email-ready recipient and follow-up lists
-- Supports multiple records per recipient
-- Links administrative inputs to finance output automatically
-- Preserves the existing monthly finance workflow
+## The Problem
+Each month, shuttle costs had to move from each rider's home department to a project charge number. The finance workbook mixed a PivotTable with flat tables, so pasting data broke it. Charge numbers arrived as one long string, but finance needed **6 separate fields**.
 
-## Workbook Sheets
+## The Solution
+| Stage | What it does |
+|---|---|
+| **Employee Responses** | Each person submits name, date, home dept, and one charge number |
+| **Admin Dashboard** | Flags who's missing and builds a ready-to-send BCC reminder list |
+| **Charge Entry** | Paste one hyphenated number; formulas split it into 6 finance segments |
+| **Finance View** | Segments land in the exact columns finance already reads |
 
-- **Admin Dashboard:** Metrics, alerts, and follow-up lists
-- **Admin Input:** Response-entry area
-- **Finance Monthly Output:** Automatically updated finance records
-- **Master Contacts:** Contact information
-- **Cover - Read Me:** Instructions and project overview
+**Key idea:** bolt on, don't rebuild. The finance workbook needed **0 changes**.
 
-## Efficiency Impact
+## Impact
+- Removed manual re-typing of **6 fields per entry**
+- Cut remaining monthly setup to **under 5 minutes**
+- **Adopted by Finance and fellow admins**; the finance owner now sends out the tracking workbook I built
 
-Once the workflow is established:
-
-- A new monthly file takes approximately 5 minutes to set up.
-- Follow-up is reduced to one reminder email before the deadline.
-- Completed records flow automatically into the finance-ready output.
-- Final review and return to Finance can often take less than 5 minutes, depending on data quality and required corrections.
-
-This significantly reduces repetitive tracking, manual entry, and follow-up effort.
-
-### Further Reduction with Claude
-
-Using Claude to run the monthly routine reduces even the remaining manual work. Steps that previously took about 5 minutes each, such as setting up the new monthly file and reviewing records before returning them to Finance, are now largely handled by Claude, leaving only a quick check of the results.
-
-## Disclaimer
-
-This is a portfolio demonstration. All names, email addresses, transactions, and other data are fictional.
+## Skills
+Excel formulas & PivotTables · Data cleaning & parsing · Integration with systems you don't own · Documentation & handoff · HTML/CSS/JS prototyping

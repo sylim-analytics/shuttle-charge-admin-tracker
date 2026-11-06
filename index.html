@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shuttle Charge Automation | Portfolio Mockup</title>
+<style>
+  :root{
+    --navy:#0f2140;
+    --navy-light:#16315c;
+    --teal:#0d9488;
+    --teal-light:#14b8a6;
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --border:#e2e8f0;
+    --text:#1e293b;
+    --muted:#64748b;
+    --amber:#b45309;
+    --amber-bg:#fffbeb;
+    --green:#15803d;
+    --green-bg:#f0fdf4;
+    --red:#b91c1c;
+    --red-bg:#fef2f2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.5;
+  }
+  header.hero{
+    background:linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--teal) 140%);
+    color:#fff;
+    padding:36px 24px 28px;
+  }
+  .hero-inner{max-width:1100px;margin:0 auto;}
+  .hero-eyebrow{
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-size:12px;
+    color:#8fd9cf;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .hero h1{margin:0 0 8px;font-size:28px;font-weight:700;}
+  .hero p.sub{margin:0;color:#cbd8ef;font-size:15px;max-width:720px;}
+  .fictional-banner{
+    max-width:1100px;
+    margin:-14px auto 0;
+    background:#fff7e6;
+    border:1px solid #f3cf8e;
+    color:#7a5200;
+    font-size:13px;
+    padding:10px 18px;
+    border-radius:8px;
+    position:relative;
+    top:14px;
+    z-index:2;
+    box-shadow:0 2px 6px rgba(0,0,0,0.06);
+  }
+  nav.tabs{
+    max-width:1100px;
+    margin:36px auto 0;
+    display:flex;
+    gap:6px;
+    padding:0 24px;
+    flex-wrap:wrap;
+  }
+  nav.tabs button{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-bottom:none;
+    padding:12px 18px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--muted);
+    cursor:pointer;
+    border-radius:10px 10px 0 0;
+    transition:all .15s ease;
+  }
+  nav.tabs button:hover{color:var(--navy);background:#eef2f9;}
+  nav.tabs button.active{
+    color:var(--navy);
+    background:var(--card);
+    box-shadow:0 -2px 0 var(--teal) inset;
+    border-color:var(--border);
+  }
+  main{
+    max-width:1100px;
+    margin:0 auto 60px;
+    padding:0 24px;
+  }
+  .panel{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:0 10px 10px 10px;
+    padding:28px;
+    display:none;
+    animation:fade .2s ease;
+  }
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+  h2.panel-title{margin:0 0 4px;font-size:20px;color:var(--navy);}
+  p.panel-desc{margin:0 0 22px;color:var(--muted);font-size:14px;max-width:760px;}
+
+  /* Overview flow */
+  .flow{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:28px;
+  }
+  .flow-step{
+    flex:1 1 170px;
+    background:#f8fafc;
+    border:1px solid var(--border);
+    border-top:4px solid var(--teal);
+    border-radius:10px;
+    padding:16px;
+    position:relative;
+  }
+  .flow-step .num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:24px;height:24px;
+    background:var(--navy);
+    color:#fff;
+    border-radius:50%;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .flow-step h3{margin:0 0 6px;font-size:14px;color:var(--navy);}
+  .flow-step p{margin:0;font-size:12.5px;color:var(--muted);}
+  .flow-arrow{
+    display:flex;align-items:center;justify-content:center;
+    color:var(--teal);font-size:20px;font-weight:700;
+    flex:0 0 18px;
+  }
+  @media (max-width:860px){.flow-arrow{display:none;}}
+
+  .legend-row{display:flex;gap:18px;margin-bottom:24px;flex-wrap:wrap;font-size:13px;color:var(--muted);}
+  .legend-dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle;}
+
+  .kv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:10px;}
+  .kv-card{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:16px;}
+  .kv-card .label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:600;}
+  .kv-card .value{font-size:24px;font-weight:700;color:var(--navy);margin-top:4px;}
+  .kv-card.good .value{color:var(--green);}
+  .kv-card.warn .value{color:var(--amber);}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;}
+  thead th{
+    background:var(--navy);
+    color:#fff;
+    text-align:left;
+    padding:10px 12px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  tbody td{padding:9px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
+  tbody tr:nth-child(even){background:#f8fafc;}
+  tbody tr:hover{background:#eef5f4;}
+  .table-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:10px;}
+
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:700;}
+  .badge.yes{background:var(--green-bg);color:var(--green);}
+  .badge.no{background:var(--red-bg);color:var(--red);}
+
+  .readonly-note{
+    background:#eef5f4;
+    border:1px solid #bfe3dd;
+    color:#0b6e63;
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:13px;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .readonly-note .lock{font-size:15px;}
+
+  /* Entry demo */
+  .entry-demo{
+    background:#f8fafc;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:26px;
+  }
+  .entry-demo label{font-size:13px;font-weight:600;color:var(--navy);display:block;margin-bottom:8px;}
+  .entry-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .entry-row input[type=text]{
+    flex:1 1 320px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:13px;
+    font-family:monospace;
+  }
+  .entry-row button{
+    background:var(--teal);
+    color:#fff;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .entry-row button:hover{background:var(--teal-light);}
+  .segments{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:16px;}
+  .segment-box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-left:4px solid var(--teal);
+    border-radius:8px;
+    padding:10px 12px;
+  }
+  .segment-box .seg-label{font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.4px;}
+  .segment-box .seg-val{font-size:15px;font-weight:700;color:var(--navy);margin-top:3px;font-family:monospace;word-break:break-all;}
+  .hint{font-size:12px;color:var(--muted);margin-top:10px;}
+
+  .section-sub{font-size:15px;font-weight:700;color:var(--navy);margin:26px 0 10px;}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media (max-width:760px){.two-col{grid-template-columns:1fr;}}
+
+  .list-box{
+    background:#f8fafc;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px 16px;
+  }
+  .list-box h4{margin:0 0 8px;font-size:13px;color:var(--navy);}
+  .mono-block{
+    font-family:monospace;
+    font-size:12px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:10px;
+    color:#334155;
+    word-break:break-all;
+    max-height:120px;
+    overflow-y:auto;
+  }
+  .copy-btn{
+    margin-top:8px;
+    background:transparent;
+    border:1px solid var(--teal);
+    color:var(--teal);
+    font-size:12px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:6px;
+    cursor:pointer;
+  }
+  .copy-btn:hover{background:var(--teal);color:#fff;}
+  .copy-btn.copied{background:var(--green);border-color:var(--green);color:#fff;}
+
+  .workflow-steps{list-style:none;margin:0;padding:0;counter-reset:step;}
+  .workflow-steps li{
+    counter-increment:step;
+    position:relative;
+    padding:8px 0 8px 36px;
+    font-size:13.5px;
+    color:var(--text);
+  }
+  .workflow-steps li::before{
+    content:counter(step);
+    position:absolute;left:0;top:7px;
+    width:22px;height:22px;
+    background:var(--navy);
+    color:#fff;
+    border-radius:50%;
+    font-size:11px;
+    font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    padding:20px 24px 40px;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Process Automation &middot; Portfolio Demo</div>
+    <h1>Shuttle Charge Allocation Tracker</h1>
+    <p class="sub">An interactive walkthrough of a monthly shuttle-charge allocation workflow: employee self-reporting, department-admin charge-number entry, a non-invasive bridge into a legacy finance workbook, and admin completion tracking.</p>
+  </div>
+</header>
+
+<div class="fictional-banner">
+  ⚠️ <strong>Demo notice:</strong> This mockup recreates the logic of a real internal workbook using a fictional company ("NovaWorks Corp", Riverside Campus), fictional employee names, and fictional charge numbers. No real company data is shown.
+</div>
+
+<nav class="tabs" id="tabNav">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="responses">Employee Responses</button>
+  <button class="tab-btn" data-tab="entry">Admin — Charge Entry</button>
+  <button class="tab-btn" data-tab="finance">Finance Team View</button>
+  <button class="tab-btn" data-tab="dashboard">Admin Dashboard</button>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section class="panel active" id="overview">
+    <h2 class="panel-title">How the process connects, end to end</h2>
+    <p class="panel-desc">Five stages carry one shuttle charge from an employee's submission all the way to the finance team's ledger — without anyone re-typing or reformatting data by hand.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="num">1</div>
+        <h3>Employee submits</h3>
+        <p>Employee pastes their name, date, home department, and one charge number into a shared response form.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="num">2</div>
+        <h3>Admin tracks completion</h3>
+        <p>A dashboard flags who has responded, who is missing, and generates ready-to-send BCC reminder lists.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="num">3</div>
+        <h3>Admin splits the number</h3>
+        <p>Pasting one hyphenated charge number auto-splits it into six finance segments — no manual parsing.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="num">4</div>
+        <h3>Finance view mirrors it</h3>
+        <p>A read-only view shows the same six segments, already lined up in finance's expected column order.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="num">5</div>
+        <h3>Legacy workbook untouched</h3>
+        <p>The existing finance pivot workbook consumes those columns as-is — its structure is never redesigned.</p>
+      </div>
+    </div>
+
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background:#cbd5e1;"></span>Preserved — existing finance structure, unchanged</span>
+      <span><span class="legend-dot" style="background:var(--teal);"></span>Added — new admin tooling that removes manual re-keying</span>
+    </div>
+
+    <div class="kv-grid">
+      <div class="kv-card">
+        <div class="label">Charge number format</div>
+        <div class="value" style="font-size:15px;font-family:monospace;">BU-OU-Dept-Acct-Project-Activity</div>
+      </div>
+      <div class="kv-card good">
+        <div class="label">Manual re-typing removed</div>
+        <div class="value">6 fields / entry</div>
+      </div>
+      <div class="kv-card warn">
+        <div class="label">Finance workbook changes required</div>
+        <div class="value">0</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPLOYEE RESPONSES -->
+  <section class="panel" id="responses">
+    <h2 class="panel-title">Employee Responses</h2>
+    <p class="panel-desc">Employees self-report their monthly shuttle usage: name, date, home department, and one charge number copied from their department admin.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Date</th><th>Home Dept</th><th>Charge Number</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jordan Ellis</td><td>2026-09-03</td><td>Facilities</td><td>20014-3050-61200-78420000-000000000091234-014</td></tr>
+          <tr><td>Priya Nandakumar</td><td>2026-09-04</td><td>R&amp;D Labs</td><td>20014-3102-61500-78500000-000000000091560-022</td></tr>
+          <tr><td>Marcus Webb</td><td>2026-09-05</td><td>IT Services</td><td>20031-3200-62010-78420000-000000000092011-031</td></tr>
+          <tr><td>Dana Olsen</td><td>2026-09-08</td><td>Logistics</td><td>20014-3050-61200-78420000-000000000091234-014</td></tr>
+          <tr><td>Owen Castillo</td><td>2026-09-09</td><td>Quality Assurance</td><td>20014-3102-61500-78500000-000000000091560-022</td></tr>
+          <tr><td>Felicity Grant</td><td>2026-09-10</td><td>Admin Services</td><td style="color:var(--muted);font-style:italic;">Home Dept only — no charge number</td></tr>
+          <tr><td>Noah Park</td><td>2026-09-11</td><td>Environmental Eng.</td><td>20031-3200-62010-78420000-000000000092011-031</td></tr>
+          <tr><td>Ivy Chen</td><td>2026-09-15</td><td>Optical Research</td><td>20014-3050-61200-78420000-000000000091234-014</td></tr>
+          <tr><td>Reuben Cole</td><td>2026-09-17</td><td>Facilities</td><td>20014-3102-61500-78500000-000000000091560-022</td></tr>
+          <tr><td>Lauren Mackey</td><td>2026-09-22</td><td>IT Services</td><td>20031-3200-62010-78420000-000000000092011-031</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">A charge number with no dashes (e.g. "Home Dept only") is caught by the Admin Dashboard's missing-info alert, shown in the Admin Dashboard tab.</p>
+  </section>
+
+  <!-- ADMIN CHARGE ENTRY -->
+  <section class="panel" id="entry">
+    <h2 class="panel-title">Admin — Charge Number Entry</h2>
+    <p class="panel-desc">Rather than redesign the finance owner's workbook, the department admin pastes one hyphen-delimited charge number here. Formulas instantly split it into the six fields finance needs — <strong>BU, OU, Dept, Account, Project, Activity</strong>.</p>
+
+    <div class="entry-demo">
+      <label for="chargeInput">Try it — paste a charge number:</label>
+      <div class="entry-row">
+        <input type="text" id="chargeInput" value="20014-3050-61200-78420000-000000000091234-014">
+        <button type="button" onclick="splitCharge()">Split into segments</button>
+      </div>
+      <div class="segments" id="segmentOutput"></div>
+      <p class="hint">This mirrors the real formula logic: one pasted string, six parsed fields, zero manual re-typing.</p>
+    </div>
+
+    <div class="section-sub">Processed entries this month</div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Dept Admin</th><th>Employee</th><th>Raw Charge Number</th><th>BU</th><th>OU</th><th>Dept</th><th>Account</th><th>Project</th><th>Activity</th></tr>
+        </thead>
+        <tbody id="entryTableBody">
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FINANCE TEAM VIEW -->
+  <section class="panel" id="finance">
+    <h2 class="panel-title">Finance Team View</h2>
+    <p class="panel-desc">A read-only mirror of the Admin Entry segments, arranged in the exact column order the finance team's legacy pivot workbook already expects.</p>
+
+    <div class="readonly-note"><span class="lock">🔒</span> Read-only — finance pulls directly from these columns. Nothing is retyped or reformatted on this side.</div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Line Descr.</th><th>Admin</th><th>BU</th><th>OU</th><th>Dept</th><th>Account</th><th>Project</th><th>Activity</th><th>Amount</th></tr>
+        </thead>
+        <tbody id="financeTableBody">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-sub">Dept Credits Summary (pivot)</div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Dept Code</th><th>Sum of Amount</th></tr></thead>
+        <tbody>
+          <tr><td>61200</td><td>$126.00</td></tr>
+          <tr><td>61500</td><td>$189.00</td></tr>
+          <tr><td>62010</td><td>$126.00</td></tr>
+          <tr><td><strong>Grand Total</strong></td><td><strong>$441.00</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ADMIN DASHBOARD -->
+  <section class="panel" id="dashboard">
+    <h2 class="panel-title">Admin Dashboard</h2>
+    <p class="panel-desc">The daily workspace: monitor completion, resolve missing info, and copy ready-made reminder lists.</p>
+
+    <div class="kv-grid">
+      <div class="kv-card"><div class="label">Total recipients</div><div class="value">10</div></div>
+      <div class="kv-card good"><div class="label">Completed</div><div class="value">9</div></div>
+      <div class="kv-card warn"><div class="label">Still pending</div><div class="value">1</div></div>
+      <div class="kv-card warn"><div class="label">Missing charge number</div><div class="value">1</div></div>
+    </div>
+
+    <div class="section-sub">Completion status</div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Form Completed</th><th>Charge # Provided</th></tr></thead>
+        <tbody>
+          <tr><td>Jordan Ellis</td><td>ellisj@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">OK</span></td></tr>
+          <tr><td>Priya Nandakumar</td><td>nandakumarp@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">OK</span></td></tr>
+          <tr><td>Marcus Webb</td><td>webbm@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">OK</span></td></tr>
+          <tr><td>Dana Olsen</td><td>olsend@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">OK</span></td></tr>
+          <tr><td>Owen Castillo</td><td>castilloo@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">OK</span></td></tr>
+          <tr><td>Felicity Grant</td><td>grantf@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge no">Missing</span></td></tr>
+          <tr><td>Noah Park</td><td>parkn@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">OK</span></td></tr>
+          <tr><td>Ivy Chen</td><td>cheni@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">OK</span></td></tr>
+          <tr><td>Reuben Cole</td><td>colere@novaworks.example</td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">OK</span></td></tr>
+          <tr><td>Lauren Mackey</td><td>mackeyl@novaworks.example</td><td><span class="badge no">No</span></td><td><span class="badge no">—</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-sub">Missing-info alert</div>
+    <div class="list-box">
+      <h4>Needs follow-up</h4>
+      <p style="font-size:13px;margin:0;">Felicity Grant (Home Dept entered, no charge number) &middot; Lauren Mackey (form not yet completed)</p>
+    </div>
+
+    <div class="section-sub">Reminder lists</div>
+    <div class="two-col">
+      <div class="list-box">
+        <h4>Initial email list (BCC)</h4>
+        <div class="mono-block" id="initialList">ellisj@novaworks.example; nandakumarp@novaworks.example; webbm@novaworks.example; olsend@novaworks.example; castilloo@novaworks.example; grantf@novaworks.example; parkn@novaworks.example; cheni@novaworks.example; colere@novaworks.example; mackeyl@novaworks.example</div>
+        <button class="copy-btn" onclick="copyText('initialList', this)">Copy list</button>
+      </div>
+      <div class="list-box">
+        <h4>Follow-up email list (BCC)</h4>
+        <div class="mono-block" id="followList">grantf@novaworks.example; mackeyl@novaworks.example</div>
+        <button class="copy-btn" onclick="copyText('followList', this)">Copy list</button>
+      </div>
+    </div>
+
+    <div class="section-sub">Daily workflow</div>
+    <ol class="workflow-steps">
+      <li>Review completion status and the missing-info alert above.</li>
+      <li>If anything is missing, follow up directly or send the follow-up BCC list.</li>
+      <li>Once all charge numbers are in, hand off to the Admin Charge Entry tab for splitting.</li>
+      <li>Confirm the Finance Team View reflects the final segments before month-end close.</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer>
+  Portfolio demo &middot; All names, departments, and charge numbers are fictional and used for illustration only.
+</footer>
+
+<script>
+  // Tab switching
+  const buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Charge number splitter
+  function renderSegments(raw, container){
+    const labels = ['BU','OU','Dept','Account','Project','Activity'];
+    const parts = raw.split('-').map(s => s.trim());
+    container.innerHTML = '';
+    labels.forEach((label, i) => {
+      const val = parts[i] && parts[i].length ? parts[i] : '—';
+      const box = document.createElement('div');
+      box.className = 'segment-box';
+      box.innerHTML = '<div class="seg-label">Segment ' + (i+1) + ' &middot; ' + label + '</div><div class="seg-val">' + val + '</div>';
+      container.appendChild(box);
+    });
+  }
+
+  function splitCharge(){
+    const raw = document.getElementById('chargeInput').value;
+    renderSegments(raw, document.getElementById('segmentOutput'));
+  }
+
+  // Processed entries data (shared source for Admin Entry + Finance View)
+  const entries = [
+    {admin:'Priya Shah',   employee:'Jordan Ellis',       raw:'20014-3050-61200-78420000-000000000091234-014', amount:'$42.00'},
+    {admin:'Priya Shah',   employee:'Dana Olsen',         raw:'20014-3050-61200-78420000-000000000091234-014', amount:'$42.00'},
+    {admin:'Priya Shah',   employee:'Ivy Chen',           raw:'20014-3050-61200-78420000-000000000091234-014', amount:'$42.00'},
+    {admin:'Marcus Webb',  employee:'Priya Nandakumar',   raw:'20014-3102-61500-78500000-000000000091560-022', amount:'$63.00'},
+    {admin:'Marcus Webb',  employee:'Owen Castillo',      raw:'20014-3102-61500-78500000-000000000091560-022', amount:'$63.00'},
+    {admin:'Marcus Webb',  employee:'Reuben Cole',        raw:'20014-3102-61500-78500000-000000000091560-022', amount:'$63.00'},
+    {admin:'Dana Olsen',   employee:'Marcus Webb',        raw:'20031-3200-62010-78420000-000000000092011-031', amount:'$42.00'},
+    {admin:'Dana Olsen',   employee:'Noah Park',          raw:'20031-3200-62010-78420000-000000000092011-031', amount:'$42.00'},
+    {admin:'Dana Olsen',   employee:'Lauren Mackey',      raw:'20031-3200-62010-78420000-000000000092011-031', amount:'$42.00'},
+  ];
+
+  function buildEntryTable(){
+    const labels = ['BU','OU','Dept','Account','Project','Activity'];
+    const tbody = document.getElementById('entryTableBody');
+    tbody.innerHTML = '';
+    entries.forEach(e => {
+      const parts = e.raw.split('-');
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+e.admin+'</td><td>'+e.employee+'</td><td style="font-family:monospace;">'+e.raw+'</td>' +
+        parts.map(p => '<td>'+p+'</td>').join('');
+      tbody.appendChild(tr);
+    });
+  }
+
+  function buildFinanceTable(){
+    const tbody = document.getElementById('financeTableBody');
+    tbody.innerHTML = '';
+    entries.forEach(e => {
+      const parts = e.raw.split('-');
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>Shuttle charge — '+e.employee+'</td><td>'+e.admin+'</td>' +
+        parts.map(p => '<td>'+p+'</td>').join('') +
+        '<td>'+e.amount+'</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  function copyText(id, btn){
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1500);
+    });
+  }
+
+  // init
+  splitCharge();
+  buildEntryTable();
+  buildFinanceTable();
+</script>
+
+</body>
+</html>
